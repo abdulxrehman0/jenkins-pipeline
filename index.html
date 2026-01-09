@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tic Tac Toe</h1>
+
+<div class="board">
+    <button class="cell" onclick="move(this,0)"></button>
+    <button class="cell" onclick="move(this,1)"></button>
+    <button class="cell" onclick="move(this,2)"></button>
+    <button class="cell" onclick="move(this,3)"></button>
+    <button class="cell" onclick="move(this,4)"></button>
+    <button class="cell" onclick="move(this,5)"></button>
+    <button class="cell" onclick="move(this,6)"></button>
+    <button class="cell" onclick="move(this,7)"></button>
+    <button class="cell" onclick="move(this,8)"></button>
+</div>
+
+<h2 id="result"></h2>
+<button onclick="location.reload()">Restart</button>
+
+<script>
+    let board = ["","","","","","","","",""];
+    let player = "X";
+
+    function move(cell, index) {
+        if (board[index] === "") {
+            board[index] = player;
+            cell.innerHTML = player;
+
+            if (checkWin()) {
+                document.getElementById("result").innerHTML = player + " Wins!";
+                return;
+            }
+
+            player = player === "X" ? "O" : "X";
+        }
+    }
+
+    function checkWin() {
+        const wins = [
+            [0,1,2],[3,4,5],[6,7,8],
+            [0,3,6],[1,4,7],[2,5,8],
+            [0,4,8],[2,4,6]
+        ];
+        return wins.some(w => 
+            board[w[0]] &&
+            board[w[0]] === board[w[1]] &&
+            board[w[1]] === board[w[2]]
+        );
+    }
+</script>
+
+</body>
+</html>
